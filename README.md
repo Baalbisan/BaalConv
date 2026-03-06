@@ -22,4 +22,7 @@ From the directory in which u installed BaalConv run:
 Commands can be viewed by typing "help" in the TUI
 
 # To Do:
-add hex to 15-bit support
+1. Debug hexcode
+
+# Known Bugs:
+- quit sometimes fails to quit
