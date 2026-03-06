@@ -11,6 +11,9 @@ git clone https://github.com/Baalbisan/BaalConv.git
 ```
 clang main.c -o baalconv -lncurses
 ```
+
+
+
     2. Using GCC:
 ```
 gcc main.c -lncurses -o baalconv
