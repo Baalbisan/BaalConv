@@ -1,6 +1,52 @@
 #include <ctype.h>
 #include <ncurses.h>
 #include <string.h>
+#include "./hex.h"
+
+int hexToDecimal (char Number){
+	if (!isdigit(Number)) {
+		Number = tolower(Number);
+	}
+
+	switch (Number){
+		case '0':
+			return 0;
+		case '1':
+			return 1;
+		case '2':
+			return 2;
+		case '3':
+			return 3;
+		case '4':
+			return 4;
+		case '5':
+			return 5;
+		case '6':
+			return 6;
+		case '7':
+			return 7;
+		case '8':
+			return 8;
+		case '9':
+			return 9;
+		case 'a':
+			return HEX_A;
+		case 'b':
+			return HEX_B;
+		case 'c':
+			return HEX_C;
+		case 'd':
+			return HEX_D;
+		case 'e':
+			return HEX_E;
+		case 'f':
+			return HEX_F;
+		default:{
+			return -1;
+			break;
+		}
+	}
+}
 
 //(rgb * 31 / 255) rounded
 int convertColor (int rgb){
@@ -16,6 +62,21 @@ int convertColor (int rgb){
 		return intpart+1;
 	}
 
+}
+
+int convertHexcode (char Hexcode[], char sel){
+	if (sel == 'r'){
+		return hexToDecimal(Hexcode[0]) * hexToDecimal(Hexcode[1]);
+	}
+	else if (sel == 'g'){
+		return hexToDecimal(Hexcode[2]) * hexToDecimal(Hexcode[3]);
+	}
+	else if (sel == 'b'){
+		return hexToDecimal(Hexcode[4]) * hexToDecimal(Hexcode[5]);
+	}
+	else {
+		return -1;
+	}
 }
 
 void promptHandler(char prompt[], int *mode){
@@ -104,15 +165,59 @@ void promptHandler(char prompt[], int *mode){
 		getyx(stdscr, y, x);
 		mvprintw(y+1, 5, "15-bit Color is: R: %d, G: %d, B: %d", convertColor(red), convertColor(green), convertColor(blue));
 	}//end rgb
-	else if (strcmp(prompt, "help") == 0) {
+	else if (strcmp(prompt, "hex") == 0){
+		char hexcode[7];
+		int color_valid = 0;
+
+		//Read Hexcode
+		getyx(stdscr, y, x);
+		mvprintw(y+1, 5, "Enter the Hexcode of your selected color: #");
+		getnstr(hexcode, 7);
+		
+		//Check if Hexcode is correct
+		char color_correct_char;
+		do{
+			getyx(stdscr, y, x);
+			mvprintw(y+1, 5, "Color is: %s right?? [Y/N]", hexcode);
+			refresh();
+			color_correct_char = getch();
+			color_correct_char = tolower(color_correct_char);
+			switch (color_correct_char) {
+				case 'y': {
+					color_valid = 1;
+					break;
+				}
+				case 'n': {
+					color_valid = 0;
+					break;
+        			}
+				default:
+					  break;
+			}
+			break;
+		}while(color_correct_char != 'n' || color_correct_char != 'y');
+
+		//Convert each color value
+		red = convertHexcode(hexcode, 'r');
+		if (red < 0 || red > 255)
+			color_valid = 0;
+		green = convertHexcode(hexcode, 'g');
+		if (green < 0 || green > 255)
+			color_valid = 0;
+		blue = convertHexcode(hexcode, 'b');
+		if (blue < 0 || blue > 255)
+			color_valid = 0;
+
+	}
+	else if (strcmp(prompt, "help") == 0){
 		getyx(stdscr, y, x);
 		mvprintw(y+1, x, "Commands\n\thelp: Show this message\n\tclear: Clear the Terminal\n\tquit: Exit BaalConv\n\trgb: Convert rgb(0-255) to 15-bit rgb");
 	}
-	else if (strcmp(prompt, "clear") == 0) {
+	else if (strcmp(prompt, "clear") == 0){
 		clear();
 		*mode = 1;
 	}
-	else if (strcmp(prompt, "quit") == 0) {
+	else if (strcmp(prompt, "quit") == 0){
 		*mode = 0;
 	}
 }
