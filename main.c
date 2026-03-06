@@ -225,7 +225,7 @@ void promptHandler(char prompt[], int *mode){
 	}//end hex
 	else if (strcmp(prompt, "help") == 0){
 		getyx(stdscr, y, x);
-		mvprintw(y+1, x, "Commands\n\thelp: Show this message\n\tclear: Clear the Terminal\n\tquit: Exit BaalConv\n\trgb: Convert rgb(0-255) to 15-bit rgb");
+		mvprintw(y+1, x, "Commands\n\thelp: Show this message\n\tclear: Clear the Terminal\n\tquit: Exit BaalConv\n\trgb: Convert rgb(0-255) to 15-bit rgb\n\thex: Convert hexcode to 15-bit rgb");
 	}
 	else if (strcmp(prompt, "clear") == 0){
 		clear();
