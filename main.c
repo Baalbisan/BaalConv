@@ -18,8 +18,10 @@ int convertColor (int rgb){
 
 }
 
-void promptHandler(char prompt[], int x, int y, int *quitorn){
+void promptHandler(char prompt[], int *mode){
 	int red, green, blue;
+	int x, y;
+	getyx(stdscr, y, x);
 
 	if (strcmp(prompt, "rgb") == 0){
 		
@@ -27,7 +29,7 @@ void promptHandler(char prompt[], int x, int y, int *quitorn){
 		do{
 
 		//Read RGB Values (0-255)
-		mvprintw(y+2, 5, "R: ");
+		mvprintw(y, 5, "R: ");
 		refresh();
 		int redcheck = 0;
 		do {
@@ -93,8 +95,8 @@ void promptHandler(char prompt[], int x, int y, int *quitorn){
 					break;
 				}
 			}
+			break;
 		}while (color_correct_char != 'n' || color_correct_char != 'y');
-
 
 		}while(!color_correct_check);
 
@@ -108,33 +110,45 @@ void promptHandler(char prompt[], int x, int y, int *quitorn){
 	}
 	else if (strcmp(prompt, "clear") == 0) {
 		clear();
+		*mode = 1;
 	}
 	else if (strcmp(prompt, "quit") == 0) {
-		*quitorn = 1;
+		*mode = 0;
 	}
 }
 
 int main (){
 	int currentx, currenty;
+	int mode = 2;
 	char prompt[6];
 
 	initscr();
 	mvprintw(0, 0,"help to see available commands");
-
-	int quitorn = 0;/*1 to quit*/
-	while (!quitorn){
-		getyx(stdscr, currenty, currentx);
-		attron(A_BLINK);
-		mvprintw(currenty+1, 0,"=>");
-		refresh();
-		attroff(A_BLINK);
-		
-		//read prompt
-		getnstr(prompt, 6);
-		promptHandler(prompt, currentx, currenty, &quitorn);
-	}
-
-	endwin();
 	
+	do{
+		if (mode == 1){
+			attron(A_BLINK);
+			mvprintw(0, 0,"=>");
+			refresh();
+			attroff(A_BLINK);
+		
+			//read prompt
+			getnstr(prompt, 6);
+			promptHandler(prompt, &mode);
+			mode = 2;
+		}
+		else if (mode == 2){
+			getyx(stdscr, currenty, currentx);
+			attron(A_BLINK);
+			mvprintw(currenty+1, 0,"=>");
+			refresh();
+			attroff(A_BLINK);
+		
+			//read prompt
+			getnstr(prompt, 6);
+			promptHandler(prompt, &mode);
+		}
+	}while(mode != 0);
+
 	return 0;
 }
