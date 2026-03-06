@@ -1,2 +1,10 @@
-#Executables
-*.
+### Ignore Executables ###
+
+# Ignore all
+*
+
+# Unignore extensions
+!*.*
+
+# Unignore dir
+!*/
