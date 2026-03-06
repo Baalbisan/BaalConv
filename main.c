@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <ncurses.h>
 #include <string.h>
 
@@ -17,13 +18,16 @@ int convertColor (int rgb){
 
 }
 
-void promptHandler(char prompt[4], int x, int y, int *quitorn){
+void promptHandler(char prompt[], int x, int y, int *quitorn){
 	int red, green, blue;
 
 	if (strcmp(prompt, "rgb") == 0){
 		
+		int color_correct_check = 0;
+		do{
+
 		//Read RGB Values (0-255)
-		mvprintw(y+1, x+5, "R: ");
+		mvprintw(y+2, 5, "R: ");
 		refresh();
 		int redcheck = 0;
 		do {
@@ -38,7 +42,7 @@ void promptHandler(char prompt[4], int x, int y, int *quitorn){
 		}while (!redcheck);
 
 		getyx(stdscr, y, x);
-		mvprintw(y, x+5, "G: ");
+		mvprintw(y, 5, "G: ");
 		refresh();
 		int greencheck = 0;
 		do {
@@ -53,7 +57,7 @@ void promptHandler(char prompt[4], int x, int y, int *quitorn){
 		}while (!greencheck);
 
 		getyx(stdscr, y, x);
-		mvprintw(y, x+5, "B: ");
+		mvprintw(y, 5, "B: ");
 		refresh();
 		int bluecheck = 0;
 		do {
@@ -69,19 +73,19 @@ void promptHandler(char prompt[4], int x, int y, int *quitorn){
 
 
 		//Check if color is correct
-		int color_correct_check = 0;
 		char color_correct_char;
 		do{
 			getyx(stdscr, y, x);
-			mvprintw(y+1, x+5, "Color is: R: %d, G: %d, B: %d right?? [Y/N]", red, green, blue);
+			mvprintw(y+1, 5, "Color is: R: %d, G: %d, B: %d right?? [Y/N]", red, green, blue);
 			refresh();
 			color_correct_char = getch();
+			color_correct_char = tolower(color_correct_char);
 			switch (color_correct_char) {
-				case 'Y': {
+				case 'y': {
 					color_correct_check = 1;
 					break;
 				}
-				case 'N': {
+				case 'n': {
 					color_correct_check = 0;
 					break;
 				}
@@ -89,13 +93,22 @@ void promptHandler(char prompt[4], int x, int y, int *quitorn){
 					break;
 				}
 			}
-		}while (!color_correct_check);
+		}while (color_correct_char != 'n' || color_correct_char != 'y');
+
+
+		}while(!color_correct_check);
 
 		//Convert to 15bitrgb
 		getyx(stdscr, y, x);
 		mvprintw(y+1, 5, "15-bit Color is: R: %d, G: %d, B: %d", convertColor(red), convertColor(green), convertColor(blue));
-		getch();
 	}//end rgb
+	else if (strcmp(prompt, "help") == 0) {
+		getyx(stdscr, y, x);
+		mvprintw(y+1, x, "Commands\n\thelp: Show this message\n\tclear: Clear the Terminal\n\tquit: Exit BaalConv\n\trgb: Convert rgb(0-255) to 15-bit rgb");
+	}
+	else if (strcmp(prompt, "clear") == 0) {
+		clear();
+	}
 	else if (strcmp(prompt, "quit") == 0) {
 		*quitorn = 1;
 	}
@@ -103,7 +116,7 @@ void promptHandler(char prompt[4], int x, int y, int *quitorn){
 
 int main (){
 	int currentx, currenty;
-	char prompt[4];
+	char prompt[6];
 
 	initscr();
 	mvprintw(0, 0,"help to see available commands");
@@ -117,7 +130,7 @@ int main (){
 		attroff(A_BLINK);
 		
 		//read prompt
-		getnstr(prompt, 4);
+		getnstr(prompt, 6);
 		promptHandler(prompt, currentx, currenty, &quitorn);
 	}
 
