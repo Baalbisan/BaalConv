@@ -175,11 +175,20 @@ void promptHandler(char prompt[], int *mode){
 		getyx(stdscr, y, x);
 		mvprintw(y, 5, "Enter the Hexcode of your selected color: #");
 		getnstr(hexcode, 7);
+
+		//Hexcode length check
+		if (strlen(hexcode) != 6){
+			mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.");
+			color_valid = 0;
+			continue;
+		}
 		
 		//Check if Hexcode is correct
 		char color_correct_char;
 		int hexcode_correct;
 		do{
+
+
 			do{
 				getyx(stdscr, y, x);
 				mvprintw(y, 5, "Color is: %s right?? [Y/N]", hexcode);
@@ -217,11 +226,14 @@ void promptHandler(char prompt[], int *mode){
 				color_valid = 0;
 			}
 
-		}while(!color_valid);
-
 		//Convert to 15-bit rgb
 		getyx(stdscr, y, x);
 		mvprintw(y+2, 5, "15-bit Color is: R: %d, G: %d, B: %d", convertColor(red), convertColor(green), convertColor(blue));
+
+
+		}while(!color_valid);
+		printw("debug_2");
+		printw("c_v: %d", color_valid);
 	}//end hex
 	else if (strcmp(prompt, "help") == 0){
 		getyx(stdscr, y, x);
