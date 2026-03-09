@@ -83,7 +83,8 @@ void promptHandler(char prompt[], int *mode){
 	int red, green, blue;
 	int x, y;
 	getyx(stdscr, y, x);
-
+	
+	//RGB
 	if (strcmp(prompt, "rgb") == 0){
 		
 		int color_correct_check = 0;
@@ -165,12 +166,16 @@ void promptHandler(char prompt[], int *mode){
 		getyx(stdscr, y, x);
 		mvprintw(y+1, 5, "15-bit Color is: R: %d, G: %d, B: %d", convertColor(red), convertColor(green), convertColor(blue));
 	}//end rgb
+	 //
+	 //
+	 //HEX
 	else if (strcmp(prompt, "hex") == 0){
 		char hexcode[7];
-		int color_valid = 1;
+		int color_valid;
 
 		do{
-
+		
+		color_valid = 1;
 		//Read Hexcode
 		getyx(stdscr, y, x);
 		mvprintw(y, 5, "Enter the Hexcode of your selected color: #");
@@ -178,17 +183,17 @@ void promptHandler(char prompt[], int *mode){
 
 		//Hexcode length check
 		if (strlen(hexcode) != 6){
-			mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.");
+			mvprintw(y+2, 5, "Error: Invalid Hexcode. Try again.");
 			color_valid = 0;
-			addstr("debug_1");
-			continue;
-		}
+		}		
 		
 		//Check if Hexcode is correct
 		char color_correct_char;
 		int hexcode_correct;
 		do{
-
+			if (color_valid == 0){
+				break;
+			}
 
 			do{
 				getyx(stdscr, y, x);
@@ -233,9 +238,9 @@ void promptHandler(char prompt[], int *mode){
 
 
 		}while(!color_valid);
-		printw("debug_2");
-		printw("c_v: %d", color_valid);
 	}//end hex
+	 //
+	 //NON-COMPLEX-PROMPTS
 	else if (strcmp(prompt, "help") == 0){
 		getyx(stdscr, y, x);
 		mvprintw(y+1, x, "Commands\n\thelp: Show this message\n\tclear: Clear the Terminal\n\tquit: Exit BaalConv\n\trgb: Convert rgb(0-255) to 15-bit rgb\n\thex: Convert hexcode to 15-bit rgb");

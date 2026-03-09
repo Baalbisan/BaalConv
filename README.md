@@ -22,9 +22,6 @@ From the directory in which you installed BaalConv run:
 Commands can be viewed by typing "help" in the TUI
 
 # KNOWN BUGS:
-- hex too short breaks shit, possible infiniloop
-    1. REPLICATE: hex and type a code shorter than 6 digits (#ABCDEF)
-        - dev notes: it doesn't have to do with leftover getnstrs needing to be fulfilled. It for some reason gets trapped in a loop that repeats reading, needs more debugging
-
+- None at the moment!
 # CHANGES:
-   - Quit not working fixed (09/03/2026)
+- Hexcode too short issue fixed (09/03/2026)
