@@ -180,6 +180,7 @@ void promptHandler(char prompt[], int *mode){
 		if (strlen(hexcode) != 6){
 			mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.");
 			color_valid = 0;
+			addstr("debug_1");
 			continue;
 		}
 		
