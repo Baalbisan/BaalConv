@@ -266,7 +266,8 @@ int main (){
 			//read prompt
 			getnstr(prompt, 6);
 			promptHandler(prompt, &mode);
-			mode = 2;
+			if (mode != 0)
+				mode = 2;
 		}
 		else if (mode == 2){
 			getyx(stdscr, currenty, currentx);
@@ -280,7 +281,7 @@ int main (){
 			promptHandler(prompt, &mode);
 		}
 	}while(mode != 0);
-
+	
 	endwin();
 	return 0;
 }

@@ -21,8 +21,8 @@ From the directory in which u installed BaalConv run:
 
 Commands can be viewed by typing "help" in the TUI
 
-# To Do:
-1. Debug hexcode corner cases
-
 # Known Bugs:
-- quit sometimes fails to quit
+- hex too short breaks shit, possible infiniloop :[
+
+# CHANGES:
+   - Quit not working fixed (09/03/2026)
