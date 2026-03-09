@@ -1,6 +1,6 @@
 A color code converter, written in C, made to convert colors from hex/rgb(255) to 15-bit rgb. Made for quick color conversion when designing gba sprites.
 
-# INSTALLATION:
+# INSTALLATION
 1. Clone the repository by running:
 ```
 git clone https://github.com/Baalbisan/BaalConv.git
@@ -13,7 +13,7 @@ git clone https://github.com/Baalbisan/BaalConv.git
     2. Using GCC:
 ```gcc main.c -lncurses -o baalconv```
 
-# USAGE:
+# USAGE
 From the directory in which you installed BaalConv run:
 ```
 ./baalconv
@@ -21,7 +21,8 @@ From the directory in which you installed BaalConv run:
 
 Available commands can be viewed by typing "help" in the TUI
 
-# KNOWN BUGS:
+# KNOWN BUGS
 - None at the moment!
-# CHANGES:
+Feel free to submit any issues you might encounter.
+# CHANGES
 - Hexcode too short issue fixed (09/03/2026)
