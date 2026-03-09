@@ -19,7 +19,7 @@ From the directory in which you installed BaalConv run:
 ./baalconv
 ```
 
-Commands can be viewed by typing "help" in the TUI
+Available commands can be viewed by typing "help" in the TUI
 
 # KNOWN BUGS:
 - None at the moment!
