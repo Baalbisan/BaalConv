@@ -7,11 +7,11 @@ git clone https://github.com/Baalbisan/BaalConv.git
 ```
 
 2. Compile the code:
-    1. Using Clang:
-```clang main.c -o baalconv -lncurses```
+    1. Using Clang:   
+    ```clang main.c -o baalconv -lncurses```
 
-    2. Using GCC:
-```gcc main.c -lncurses -o baalconv```
+    2. Using GCC:  
+    ```gcc main.c -lncurses -o baalconv```
 
 # USAGE
 From the directory in which you installed BaalConv run:
@@ -23,9 +23,7 @@ Available commands can be viewed by typing "help" in the TUI
 
 # KNOWN BUGS
 - Minor visual bug in hex conversion{#000001}.
-    REPLICATE: type hex then '.', the error mesage intersects the previous message printed.
-- Invalid hexcodes are accepted if the invalid char is in an even position and the str is exactly 6 digits long {#000002}
-    REPLICATE: type hex and try #F.FFFF or #12Cj25  
+    REPLICATE: type hex then '.', the error message prints twice the previous message printed.
     **Feel free to submit any issues you might encounter.**
 # CHANGES
-- Hexcode too short issue fixed (09/03/2026)
+- Issue {#000002} resolved (inval hexcodes accepted if in an even position).

@@ -1,7 +1,6 @@
 #include <ctype.h>
 #include <ncurses.h>
 #include <string.h>
-#include "./hex.h"
 
 int hexToDecimal (char Number){
 	if (!isdigit(Number)) {
@@ -65,17 +64,23 @@ int convertColor (int rgb){
 }
 
 int convertHexcode (char Hexcode[], char sel){
-	if (sel == 'r'){
-		return hexToDecimal(Hexcode[0]) * 16 + hexToDecimal(Hexcode[1]);
+	for (int i = 0; i < 6; i++){
+		if (hexToDecimal(Hexcode[i]) == -1)
+			return -1;
 	}
-	else if (sel == 'g'){
-		return hexToDecimal(Hexcode[2]) * 16 + hexToDecimal(Hexcode[3]);
-	}
-	else if (sel == 'b'){
-		return hexToDecimal(Hexcode[4]) * 16 + hexToDecimal(Hexcode[5]);
-	}
-	else {
-		return -1;
+	switch (sel) {
+		case 'r': {
+				return hexToDecimal(Hexcode[0]) * 16 + hexToDecimal(Hexcode[1]);
+		}
+		case 'g': {
+				return hexToDecimal(Hexcode[2]) * 16 + hexToDecimal(Hexcode[3]);
+		}
+		case 'b': {
+				return hexToDecimal(Hexcode[4]) * 16 + hexToDecimal(Hexcode[5]);
+		}
+		default: {
+			return -1;
+		}
 	}
 }
 
@@ -218,19 +223,31 @@ void promptHandler(char prompt[], int *mode){
 		}while(!hexcode_correct);
 
 		//Check each color value
+		if (convertHexcode(hexcode, 'r') != -1 && convertHexcode(hexcode, 'g') != -1 && convertHexcode(hexcode, 'b') != -1){
 			red = convertHexcode(hexcode, 'r');
 			if (red < 0 || red > 255){
 				color_valid = 0;
-				mvprintw(y, 5, "Error: Invalid Hexcode. Try again.");
+				getyx(stdscr, y, x);
+				mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.");
 			}
 			green = convertHexcode(hexcode, 'g');
 			if (green < 0 || green > 255){
 				color_valid = 0;
+				getyx(stdscr, y, x);
+				mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.");
 			}
 			blue = convertHexcode(hexcode, 'b');
 			if (blue < 0 || blue > 255){
 				color_valid = 0;
+				getyx(stdscr, y, x);
+				mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.");
 			}
+		}
+		else {
+			color_valid = 0;
+			getyx(stdscr, y, x);
+			mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.");
+		}
 
 		//Convert to 15-bit rgb
 		getyx(stdscr, y, x);
