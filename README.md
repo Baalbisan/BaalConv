@@ -22,7 +22,10 @@ From the directory in which you installed BaalConv run:
 Available commands can be viewed by typing "help" in the TUI
 
 # KNOWN BUGS
-- None at the moment!
+- Minor visual bug in hex conversion{#000001}.
+    REPLICATE: type hex then '.', the error mesage intersects the previous message printed.
+- Invalid hexcodes are accepted if the invalid char is in an even position and the str is exactly 6 digits long {#000002}
+    REPLICATE: type hex and try #F.FFFF or #12Cj25
 Feel free to submit any issues you might encounter.
 # CHANGES
 - Hexcode too short issue fixed (09/03/2026)
