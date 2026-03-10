@@ -10,37 +10,37 @@ int hexToDecimal (char Number){
 
 	switch (Number){
 		case '0':
-			return 0;
+			return 0x0;
 		case '1':
-			return 1;
+			return 0x1;
 		case '2':
-			return 2;
+			return 0x2;
 		case '3':
-			return 3;
+			return 0x3;
 		case '4':
-			return 4;
+			return 0x4;
 		case '5':
-			return 5;
+			return 0x5;
 		case '6':
-			return 6;
+			return 0x6;
 		case '7':
-			return 7;
+			return 0x7;
 		case '8':
-			return 8;
+			return 0x8;
 		case '9':
-			return 9;
+			return 0x9;
 		case 'a':
-			return HEX_A;
+			return 0xA;
 		case 'b':
-			return HEX_B;
+			return 0xB;
 		case 'c':
-			return HEX_C;
+			return 0xC;
 		case 'd':
-			return HEX_D;
+			return 0xD;
 		case 'e':
-			return HEX_E;
+			return 0xE;
 		case 'f':
-			return HEX_F;
+			return 0xF;
 		default:{
 			return -1;
 			break;
