@@ -22,8 +22,7 @@ From the directory in which you installed BaalConv run:
 Available commands can be viewed by typing "help" in the TUI
 
 # KNOWN BUGS
-- Minor visual bug in hex conversion{#000001}.
-    REPLICATE: type hex then '.', the error message prints twice the previous message printed.  
-    **Feel free to submit any issues you might encounter.**
+None at the moment!  
+**Feel free to submit any issues you might encounter.**
 # CHANGES
 - Issue {#000002} resolved (inval hexcodes accepted if in an even position).
