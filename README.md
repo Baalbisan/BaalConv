@@ -25,4 +25,5 @@ Available commands can be viewed by typing "help" in the TUI
 None at the moment!  
 **Feel free to submit any issues you might encounter.**
 # CHANGES
-- Issue {#000002} resolved (inval hexcodes accepted if in an even position).
+- Issue {#1} resolved (inval hexcodes accepted if in an even position).
+- Minor visual bug straightened out.
