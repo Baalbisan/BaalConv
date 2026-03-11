@@ -1,4 +1,4 @@
-A color code converter, written in C, made to convert colors from hex/rgb(255) to 15-bit rgb. Made for quick color conversion when designing gba sprites.
+A color code converter, written in C, utilizing the ncurses library, made to convert colors from hex/24-bit rgb to 15-bit rgb. Made for quick color conversion when designing gba sprites.
 
 # INSTALLATION
 1. Clone the repository by running:
