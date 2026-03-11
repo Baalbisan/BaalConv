@@ -11,3 +11,6 @@
 
 # Unignore License
 !LICENSE
+
+# Unignore Make
+!Makefile
