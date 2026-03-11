@@ -1,17 +1,15 @@
 A color code converter, written in C, utilizing the ncurses library, made to convert colors from hex/24-bit rgb to 15-bit rgb. Made for quick color conversion when designing gba sprites.
 
 # INSTALLATION
-1. Clone the repository by running:
+- Clone the repository by running:
 ```
 git clone https://github.com/Baalbisan/BaalConv.git
+```  
+- Compile using make  
 ```
-
-2. Compile the code:
-    1. Using Clang:   
-    ```clang main.c -o baalconv -lncurses```
-
-    2. Using GCC:  
-    ```gcc main.c -lncurses -o baalconv```
+make
+```
+*NOTE: you will need to have the Gnu Compiler Collection installed as this is what the makefile uses.*
 
 # USAGE
 From the directory in which you installed BaalConv run:
