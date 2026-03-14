@@ -20,8 +20,10 @@ From the directory in which you installed BaalConv run:
 Available commands can be viewed by typing "help" in the TUI
 
 # KNOWN BUGS
-None at the moment!  
-**Feel free to submit any issues you might encounter.**
+- if wrong color is entered selecting n is broken
+    - *REPLICATE:* hex -> random hexcode -> n doesn't work  
+    or color -> random color -> n doesn't work  
+    **Feel free to submit any issues you might encounter.**
 # CHANGES
 - Issue {#1} resolved (inval hexcodes accepted if in an even position).
 - Minor visual bug straightened out.
