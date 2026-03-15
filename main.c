@@ -269,7 +269,10 @@ void promptHandler(char prompt[], int *mode){
 	else if (strcmp(prompt, "quit") == 0){
 		*mode = 0;
 	}
-
+	else {
+		getyx(stdscr, y, x);
+		mvprintw(y, 5, "Invalid command entered, Try running ""help"" to see available commands.");
+	}
 }
 
 int main (){
