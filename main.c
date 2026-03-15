@@ -87,16 +87,16 @@ int convertHexcode (char Hexcode[], char sel){
 void promptHandler(char prompt[], int *mode){
 	int red, green, blue;
 	int x, y;
-	getyx(stdscr, y, x);
 	
 	//RGB
 	if (strcmp(prompt, "rgb") == 0){
 		
 		int color_correct_check = 0;
 		do{
-
+		
+		getyx(stdscr, y, x);
 		//Read RGB Values (0-255)
-		mvprintw(y, 5, "R: ");
+		mvprintw(y+1, 5, "R: ");
 		refresh();
 		int redcheck = 0;
 		do {
