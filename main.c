@@ -176,30 +176,29 @@ void promptHandler(char prompt[], int *mode){
 	 //HEX
 	else if (strcmp(prompt, "hex") == 0){
 		char hexcode[7];
-		int color_valid;
-
-		do{
+		int color_valid;	
 		
-		color_valid = 1;
-		//Read Hexcode
-		getyx(stdscr, y, x);
-		mvprintw(y, 5, "Enter the Hexcode of your selected color: #");
-		getnstr(hexcode, 7);
-
-		//Hexcode length check
-		if (strlen(hexcode) != 6){
-			mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.\n");
-			color_valid = 0;
-			continue;
-		}		
-		
-		//Check if Hexcode is correct
 		char color_correct_char;
 		int hexcode_correct;
 		do{
+
+		do{
+			//Read Hexcode
+			getyx(stdscr, y, x);
+			mvprintw(y, 5, "Enter the Hexcode of your selected color: #");
+			getnstr(hexcode, 7);
+	
+			//Hexcode length check
+			if (strlen(hexcode) != 6){
+				mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.\n");
+				color_valid = 0;
+				continue;
+			}
+
 			if (color_valid == 0){
 				break;
 			}
+
 
 			do{
 				getyx(stdscr, y, x);
@@ -270,6 +269,7 @@ void promptHandler(char prompt[], int *mode){
 	else if (strcmp(prompt, "quit") == 0){
 		*mode = 0;
 	}
+
 }
 
 int main (){
