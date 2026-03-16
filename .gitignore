@@ -14,3 +14,6 @@
 
 # Unignore Make
 !Makefile
+
+# Unignore ncurses
+!ncurses
