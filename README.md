@@ -25,3 +25,7 @@ None at the moment !
 # CHANGES
 - Fixed n not working
 - Added inval command msg
+
+### ncurses
+Ncurses is licensed under the Gnu Lesser General Public License version 2.1 (LGPL-2.1).
+The license itself is included in the acknowledgments directory.
