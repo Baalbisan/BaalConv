@@ -10,6 +10,16 @@ git clone https://github.com/Baalbisan/BaalConv.git
 make
 ```
 *NOTE: you will need to have the Gnu Compiler Collection installed as this is what the makefile uses.*
+- Add bash(or zsh) alias  
+*In ~/.bashrc (or ~/.zshrc)*
+```
+alias='/path/to/were/you/installed/baalconv'
+```
+
+- Update bash/zsh
+```
+source ~/.bashrc
+```
 
 # USAGE
 From the directory in which you installed BaalConv run:
