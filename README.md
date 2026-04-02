@@ -3,7 +3,8 @@ A color code converter, written in C, utilizing the ncurses library, made to con
 # INSTALLATION
 - Download and decompress the source code from the latest stable release or alternatively, clone the repository by running:
 ```
-git clone https://github.com/Baalbisan/BaalConv.git```
+git clone https://github.com/Baalbisan/BaalConv.git
+```
 - Compile using make  
 ```
 make
