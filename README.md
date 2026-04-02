@@ -32,9 +32,12 @@ Available commands can be viewed by typing "help" in the TUI
 # KNOWN BUGS
 None at the moment !  
 **Feel free to submit any issues you might encounter.**
-# CHANGES
+# CHANGES (V1.0.0)
 - Fixed n not working
 - Added inval command msg
+
+# CHANGES (Current repository)
+- Restructured Codebase
 
 ### ncurses
 Ncurses is licensed under the Gnu Lesser General Public License version 2.1 (LGPL-2.1).
