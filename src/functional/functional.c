@@ -66,6 +66,7 @@ void readAndCheckHexcodeValid (char hexcode[7], short *red, short *green, short 
         // check hexcode
         if (strlen(hexcode) != 6){
             returnError(2);
+            hexcode_val_check = false;
         }
         else {
             //check each value
@@ -76,10 +77,15 @@ void readAndCheckHexcodeValid (char hexcode[7], short *red, short *green, short 
             if (*red != -1 && *green != -1 && *blue != -1){
                 if ( (*red < 0 || *red > 255) || (*green < 0 || *green > 255) || (*blue < 0 || *blue > 255) ){
                     returnError(2);
+                    hexcode_val_check = false;
+                }
+                else {
+                    hexcode_val_check = true;
                 }
             }
             else {
                 returnError(2);
+                hexcode_val_check = false;
             }
         }
     }
@@ -133,7 +139,7 @@ void promptHandler (char prompt[], short *mode){
             bool hex_cor_char_check = false;
             while (!hex_cor_char_check){
                 getyx(stdscr, y, x);
-                mvprintw(y=1, 5, "Hexcode is #%s, right? [Y/N]", hexcode);
+                mvprintw(y+1, 5, "Hexcode is #%s, right? [Y/N]", hexcode);
                 switch ( tolower(getch()) ){
                     case '\n':
                     case 'y':{
