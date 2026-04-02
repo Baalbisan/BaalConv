@@ -1,2 +1,2 @@
-baalconv: main.c
-	gcc main.c -o baalconv -lncurses
+baalconv: ./src/main.c
+	gcc ./src/main.c ./src/functional/functional.c ./src/conv/hex.c ./src/conv/rgb.c -o baalconv -lncurses
