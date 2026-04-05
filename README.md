@@ -13,7 +13,7 @@ make
 - Add bash(or zsh) alias  
 *In ~/.bashrc (or ~/.zshrc)*
 ```
-alias baalconv='/path/to/were/you/installed/baalconv'
+alias baalconv='/path/to/where/you/installed/baalconv'
 ```
 
 - Update bash/zsh

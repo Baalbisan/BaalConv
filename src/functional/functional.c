@@ -2,46 +2,124 @@
 //
 // Written By: Baalbisan
 //
-// Last Modified: 02/04/2026
+// Last Modified: 05/04/2026
 
 #include <ctype.h>
 #include <ncurses.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 #include "../conv/hex.h"
 #include "../conv/rgb.h"
 
 void returnError (short errorcode){
+    short y,x;
+    getyx(stdscr, y, x);
     switch (errorcode){
-        short y,x;
-        getyx(stdscr, y, x);
-        case '1':{
-            mvprintw(y+1, x+5, "Error: Invalid Color (must be 24-bit [value in range 0-255])\n\tTry again:");
+        case 1:{
+            mvprintw(y, 5, "Error: Invalid Color (must be 24-bit [value in range 0-255])\n     Try again:");
+            break;
         }
-        case '2':{
+        case 2:{
             mvprintw(y+1, 5, "Error: Invalid Hexcode. Try again.\n");
+            break;
+        }
+        default:{
+            break;
         }
     }
     refresh();
 }
 
-void printHelp (short *y, short *x){
+void printHelp (short *y, short *x, char color_mode){
     getyx(stdscr, *y, *x);
-    mvprintw(*y, 5, "Commands\n\thelp: Show this message\n\tclear: Clear the Terminal\n\tquit: Exit BaalConv\n\trgb: Convert rgb(0-255) to 15-bit rgb\n\thex: Convert hexcode to 15-bit rgb");
+    if (color_mode == 0){
+        mvprintw(*y, 5, "Commands\n\thelp: Show this message\n\tclear: Clear the Terminal\n\tquit: Exit BaalConv\n\trgb: Convert rgb(0-255) to 15-bit rgb\n\thex: Convert hexcode to 15-bit rgb");
+    }
+    else if (color_mode == 1){
+        attron(COLOR_PAIR(2));
+        mvprintw(*y, 5, "Commands\n\t");
+        attroff(COLOR_PAIR(2));
+
+        attron(COLOR_PAIR(3));
+        printw("help: ");
+        attroff(COLOR_PAIR(3));
+        printw("Clear the Terminal\n\t");
+
+        attron(COLOR_PAIR(3));
+        printw("quit: ");
+        attroff(COLOR_PAIR(3));
+        printw("Exit BaalConv\n\t");
+
+        attron(COLOR_PAIR(3));
+        printw("rgb: ");
+        attroff(COLOR_PAIR(3));
+        printw("Convert rgb(0-255) to 15-bit rgb\n\t");
+
+        attron(COLOR_PAIR(3));
+        printw("hex: ");
+        attroff(COLOR_PAIR(3));
+        printw("Convert hexcode to 15-bit rgb\n\t");
+    }
     refresh();
 }
 
-void printConvertedColor (short red, short green, short blue){
+void printConvertedColor (short red, short green, short blue, char color_mode){
     short y,x;
     getyx(stdscr, y, x);
-    mvprintw(y+1, 5, "15-bit Color is: R: %d, G: %d, B: %d", convertTo15bitRGB(red), convertTo15bitRGB(green), convertTo15bitRGB(blue));
+    if (color_mode == 0){
+        mvprintw(y+1, 5, "15-bit Color is: R: %d, G: %d, B: %d", convertTo15bitRGB(red), convertTo15bitRGB(green), convertTo15bitRGB(blue));
+    }
+    else if (color_mode == 1){
+        mvprintw(y+1, 5, "15-bit Color is: ");
+        attron(COLOR_PAIR(1));
+        printw("R: ");
+        attroff(COLOR_PAIR(1));
+        printw("%d, ", convertTo15bitRGB(red));
+
+        attron(COLOR_PAIR(2));
+        printw("G: ");
+        attroff(COLOR_PAIR(2));
+        printw("%d, ", convertTo15bitRGB(green));
+
+        attron(COLOR_PAIR(4));
+        printw("B: ");
+        attroff(COLOR_PAIR(4));
+        printw("%d, ", convertTo15bitRGB(blue));
+    }
     refresh();
 }
 
-void readAndCheck24bitColorValid (short *color, char colorc){
+void readAndCheck24bitColorValid (short *color, char colorc, char color_mode){
     short y,x;
     getyx(stdscr, y, x);
-    mvprintw(y, 5, "%c: ", toupper(colorc));
+    if (color_mode == 0){
+        mvprintw(y, 5, "%c: ", toupper(colorc));
+    }
+    else if (color_mode == 1){
+        switch ( tolower(colorc) ){
+            case 'r':{
+                attron(COLOR_PAIR(1));
+                mvprintw(y, 5, "%c: ", toupper(colorc));
+                attroff(COLOR_PAIR(1));
+                break;
+            }
+            case 'g':{
+                attron(COLOR_PAIR(2));
+                mvprintw(y, 5, "%c: ", toupper(colorc));
+                attroff(COLOR_PAIR(2));
+                break;
+            }
+            case 'b':{
+                attron(COLOR_PAIR(4));
+                mvprintw(y, 5, "%c: ", toupper(colorc));
+                attroff(COLOR_PAIR(4));
+                break;
+            }
+            default: 
+                break;
+        }
+    }
     refresh();
 
     bool colorcheck = false;
@@ -91,7 +169,7 @@ void readAndCheckHexcodeValid (char hexcode[7], short *red, short *green, short 
     }
 }
 
-void promptHandler (char prompt[], short *mode){
+void promptHandler (char prompt[], char *mode, char color_mode){
     short red, green, blue;
     short x,y;
 
@@ -99,15 +177,34 @@ void promptHandler (char prompt[], short *mode){
         bool color_correct_check = false;
 
         do {
-            readAndCheck24bitColorValid(&red, 'r');
-            readAndCheck24bitColorValid(&green, 'g');
-            readAndCheck24bitColorValid(&blue, 'b');
+            readAndCheck24bitColorValid(&red, 'r', color_mode);
+            readAndCheck24bitColorValid(&green, 'g', color_mode);
+            readAndCheck24bitColorValid(&blue, 'b', color_mode);
 
             //Check if color entered is correct
             bool color_cor_char_check = false;
             while (!color_cor_char_check){
                 getyx(stdscr, y, x);
-                mvprintw(y+1, 5, "Color is R: %hi, G: %hi, B: %hi, right? [Y/N]", red, green, blue);
+                if (color_mode == 0){
+                    mvprintw(y+1, 5, "Color is R: %hi, G: %hi, B: %hi, right? [Y/N]", red, green, blue);
+                }
+                else if (color_mode == 1){
+                    mvprintw(y+1, 5, "Color is ");
+                    attron(COLOR_PAIR(1));
+                    printw("R: ");
+                    attroff(COLOR_PAIR(1));
+                    printw("%hi, ", red);
+
+                    attron(COLOR_PAIR(2));
+                    printw("G: ");
+                    attroff(COLOR_PAIR(2));
+                    printw("%hi, ", green);
+
+                    attron(COLOR_PAIR(4));
+                    printw("B: ");
+                    attroff(COLOR_PAIR(4));
+                    printw("%hi, right? [Y/N]", blue);
+                }
                 switch ( tolower(getch()) ){
                     case '\n':
                     case 'y':{
@@ -127,7 +224,7 @@ void promptHandler (char prompt[], short *mode){
             }
         }while (!color_correct_check);
 
-        printConvertedColor(red, green, blue);
+        printConvertedColor(red, green, blue, color_mode);
     }
     else if (strcmp(prompt, "hex") == 0){
         char hexcode[7];
@@ -139,7 +236,7 @@ void promptHandler (char prompt[], short *mode){
             bool hex_cor_char_check = false;
             while (!hex_cor_char_check){
                 getyx(stdscr, y, x);
-                mvprintw(y+1, 5, "Hexcode is #%s, right? [Y/N]", hexcode);
+                mvprintw(y, 5, "Hexcode is #%s, right? [Y/N]", hexcode);
                 switch ( tolower(getch()) ){
                     case '\n':
                     case 'y':{
@@ -150,18 +247,20 @@ void promptHandler (char prompt[], short *mode){
                     case 'n':{
                         hex_corect_check = false;
                         hex_cor_char_check = true;
+                        break;
                     }
-                    default:
+                    default:{
                         hex_cor_char_check = false;
                         break;
+                    }
                 }
             }
         }while (!hex_corect_check);
 
-        printConvertedColor(red, green, blue);
+        printConvertedColor(red, green, blue, color_mode);
     }
     else if (strcmp(prompt, "help") == 0){
-        printHelp(&y, &x);
+        printHelp(&y, &x, color_mode);
     }
     else if (strcmp(prompt, "clear") == 0){
         clear();
@@ -172,7 +271,32 @@ void promptHandler (char prompt[], short *mode){
     }
     else {
         getyx(stdscr, y, x);
-        mvprintw(y, 5, "Invalid command entered, try running ""help"" to see available commands.");
+        if (color_mode == 0){
+            mvprintw(y, 5, "Invalid command entered, try running ""help"" to see available commands.");
+        }
+        else if (color_mode == 1){
+            mvprintw(y, 5, "Invalid command entered, try running ");
+            attron(COLOR_PAIR(2));
+            printw("""help""");
+            attroff(COLOR_PAIR(2));
+            printw(" to see all available commands");
+        }
         refresh();
+    }
+}
+
+void printFlagsHelp (void){
+    printf("usage: baalconv <operation> [...]\nOperations:\n");
+    printf("\t{--help -h}: print this help message\n");
+    printf("\t{--no-color}: Don't use colors\n");
+}
+
+void flagHandler (char* argv[], char *color_mode){
+    if (strcmp(argv[1], "--no-color") == 0){
+        color_mode = 0;
+        printw("debug_1");
+    }
+    else {
+        printFlagsHelp();
     }
 }

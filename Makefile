@@ -1,2 +1,8 @@
-baalconv: ./src/main.c
-	gcc ./src/main.c ./src/functional/functional.c ./src/conv/hex.c ./src/conv/rgb.c -o baalconv -lncurses
+CC = gcc
+SRC = ./src/main.c \
+	  ./src/functional/functional.c \
+	  ./src/conv/hex.c \
+	  ./src/conv/rgb.c
+
+baalconv: $(SRC)
+	$(CC) $(SRC) -o baalconv -lncurses
