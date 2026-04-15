@@ -15,7 +15,8 @@ make
 ```
 alias baalconv='/path/to/where/you/installed/baalconv'
 ```
-
+  
+  *NOTE: If your terminal does not support colors use the --no-color flag*
 - Update bash/zsh
 ```
 source ~/.bashrc
@@ -27,17 +28,14 @@ From any directory run:
 baalconv
 ```  
 
-Available commands can be viewed by typing "help" in the TUI
+Available commands can be viewed by typing "help" in the TUI.
 
 # KNOWN BUGS
 None at the moment !  
 **Feel free to submit any issues you might encounter.**
-# CHANGES (V1.0.0)
-- Fixed n not working
-- Added inval command msg
-
-# CHANGES (Current repository)
-- Restructured Codebase
+# CHANGES (V2.0.0)
+- Added full color support.
+- Added command line arguments.
 
 ### ncurses
 Ncurses is licensed under the Gnu Lesser General Public License version 2.1 (LGPL-2.1).
