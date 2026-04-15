@@ -16,7 +16,7 @@ make
 alias baalconv='/path/to/where/you/installed/baalconv'
 ```
   
-  *NOTE: If your terminal does not support colors use the --no-color flag*
+  *NOTE: If your terminal does not support colors use the `--no-color` flag*
 - Update bash/zsh
 ```
 source ~/.bashrc
