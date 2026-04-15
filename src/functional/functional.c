@@ -298,7 +298,7 @@ void printFlagsHelp (void){
 
 int flagHandler (char* argv[], char *color_mode){
     if (strcmp(argv[1], "--no-color") == 0){
-        color_mode = 0;
+        *color_mode = 0;
     }
     else {
         printFlagsHelp();

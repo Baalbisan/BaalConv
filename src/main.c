@@ -40,7 +40,7 @@ int main (int argc, char* argv[]){
     init_pair(5, COLOR_YELLOW, -1);
 
 
-	mvprintw(0, 0,"Type the command help to see available commands.");
+	mvprintw(0, 0,"Type the command help to see available commands. %d", color_mode);
     if (color_mode == 0){
         do{
     	    if (mode == 1){
