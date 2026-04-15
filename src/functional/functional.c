@@ -2,7 +2,7 @@
 //
 // Written By: Baalbisan
 //
-// Last Modified: 05/04/2026
+// Last Modified: 15/04/2026
 
 #include <ctype.h>
 #include <ncurses.h>
@@ -35,33 +35,42 @@ void printHelp (short *y, short *x, char color_mode){
     getyx(stdscr, *y, *x);
     if (color_mode == 0){
         mvprintw(*y, 5, "Commands\n\thelp: Show this message\n\tclear: Clear the Terminal\n\tquit: Exit BaalConv\n\trgb: Convert rgb(0-255) to 15-bit rgb\n\thex: Convert hexcode to 15-bit rgb");
+        refresh();
     }
     else if (color_mode == 1){
         attron(COLOR_PAIR(2));
         mvprintw(*y, 5, "Commands\n\t");
+        refresh();
         attroff(COLOR_PAIR(2));
 
         attron(COLOR_PAIR(3));
         printw("help: ");
+        refresh();
         attroff(COLOR_PAIR(3));
         printw("Clear the Terminal\n\t");
+        refresh();
 
         attron(COLOR_PAIR(3));
         printw("quit: ");
+        refresh();
         attroff(COLOR_PAIR(3));
         printw("Exit BaalConv\n\t");
+        refresh();
 
         attron(COLOR_PAIR(3));
         printw("rgb: ");
+        refresh();
         attroff(COLOR_PAIR(3));
         printw("Convert rgb(0-255) to 15-bit rgb\n\t");
+        refresh();
 
         attron(COLOR_PAIR(3));
         printw("hex: ");
+        refresh();
         attroff(COLOR_PAIR(3));
         printw("Convert hexcode to 15-bit rgb\n\t");
+        refresh();
     }
-    refresh();
 }
 
 void printConvertedColor (short red, short green, short blue, char color_mode){
@@ -291,12 +300,12 @@ void printFlagsHelp (void){
     printf("\t{--no-color}: Don't use colors\n");
 }
 
-void flagHandler (char* argv[], char *color_mode){
+int flagHandler (char* argv[], char *color_mode){
     if (strcmp(argv[1], "--no-color") == 0){
         color_mode = 0;
-        printw("debug_1");
     }
     else {
         printFlagsHelp();
+        return -1;
     }
 }

@@ -16,7 +16,13 @@ int main (int argc, char* argv[]){
     char color_mode = 1;
 
     if (argc > 1){
-        flagHandler(argv, &color_mode);
+        switch (flagHandler(argv, &color_mode)){
+            case -1:
+                return 0;
+                break;
+            default:
+                break;
+        }
     }
     
     initscr();

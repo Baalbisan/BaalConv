@@ -18,4 +18,4 @@ void promptHandler (char prompt[], char *mode);
 
 void printFlagsHelp (void);
 
-void flagHandler (char* argv[], char *color_mode);
+int flagHandler (char* argv[], char *color_mode);
