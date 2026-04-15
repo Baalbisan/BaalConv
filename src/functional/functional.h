@@ -2,7 +2,7 @@
 //
 // Written By: Baalbisan
 //
-// Last Modified: 05/04/2026
+// Last Modified: 15/04/2026
 
 void returnError (short errorcode);
 
@@ -14,7 +14,7 @@ void readAndCheck24bitColorValid (short *color, char colorc);
 
 void readAndCheckHexcodeValid (char hexcode[7], short *red, short *green, short *blue, short *y, short *x);
 
-void promptHandler (char prompt[], char *mode);
+void promptHandler (char prompt[], char *mode, char color_mode);
 
 void printFlagsHelp (void);
 

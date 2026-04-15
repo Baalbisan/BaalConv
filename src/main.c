@@ -2,7 +2,7 @@
 //
 // Written By: Baalbisan
 //
-// Last Modifed: 05/04/2026
+// Last Modifed: 15/04/2026
 
 #include <ncurses.h>
 #include "./conv/rgb.h"
@@ -37,6 +37,7 @@ int main (int argc, char* argv[]){
     init_pair(2, COLOR_GREEN, -1);
     init_pair(3, COLOR_CYAN, -1);
     init_pair(4, COLOR_BLUE, -1);
+    init_pair(5, COLOR_YELLOW, -1);
 
 
 	mvprintw(0, 0,"Type the command help to see available commands.");
@@ -50,7 +51,7 @@ int main (int argc, char* argv[]){
 		
 	    	    //read prompt
 		    	getnstr(prompt, 6);
-    		    promptHandler(prompt, &mode);
+    		    promptHandler(prompt, &mode, color_mode);
     	    	if (mode != 0)
 	    	    	mode = 2;
     	    }
@@ -63,7 +64,7 @@ int main (int argc, char* argv[]){
 		
     	    	//read prompt
 	    	    getnstr(prompt, 6);
-    	    	promptHandler(prompt, &mode);
+    	    	promptHandler(prompt, &mode, color_mode);
 	    	}
         }while(mode != 0);
     }
@@ -73,13 +74,12 @@ int main (int argc, char* argv[]){
 		        attron(A_BLINK);
                 attron(COLOR_PAIR(1));
     	    	mvprintw(0, 0,"=>");
-	    	    refresh();
     	    	attroff(A_BLINK);
-                attron(COLOR_PAIR(1));
+                attroff(COLOR_PAIR(1));
 		
 		    	//read prompt
     			getnstr(prompt, 6);
-        		promptHandler(prompt, &mode);
+        		promptHandler(prompt, &mode, color_mode);
 	        	if (mode != 0)
 		        	mode = 2;
         	}
@@ -88,13 +88,12 @@ int main (int argc, char* argv[]){
 			    attron(A_BLINK);
                 attron(COLOR_PAIR(1));
     	    	mvprintw(currenty+1, 0,"=>");
-	    	    refresh();
 		    	attroff(A_BLINK);
                 attroff(COLOR_PAIR(1));
 		
     	    	//read prompt
 	    	    getnstr(prompt, 6);
-    	    	promptHandler(prompt, &mode);
+    	    	promptHandler(prompt, &mode, color_mode);
 	    	}
         }while(mode != 0);
     }

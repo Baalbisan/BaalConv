@@ -38,38 +38,34 @@ void printHelp (short *y, short *x, char color_mode){
         refresh();
     }
     else if (color_mode == 1){
-        attron(COLOR_PAIR(2));
+        attron(COLOR_PAIR(3));
         mvprintw(*y, 5, "Commands\n\t");
-        refresh();
-        attroff(COLOR_PAIR(2));
+        attroff(COLOR_PAIR(3));
 
-        attron(COLOR_PAIR(3));
+        attron(COLOR_PAIR(5));
         printw("help: ");
-        refresh();
-        attroff(COLOR_PAIR(3));
+        attroff(COLOR_PAIR(5));
+        printw("Show this message\n\t");
+
+        attron(COLOR_PAIR(5));
+        printw("clear: ");
+        attroff(COLOR_PAIR(5));
         printw("Clear the Terminal\n\t");
-        refresh();
 
-        attron(COLOR_PAIR(3));
+        attron(COLOR_PAIR(5));
         printw("quit: ");
-        refresh();
-        attroff(COLOR_PAIR(3));
+        attroff(COLOR_PAIR(5));
         printw("Exit BaalConv\n\t");
-        refresh();
 
-        attron(COLOR_PAIR(3));
+        attron(COLOR_PAIR(5));
         printw("rgb: ");
-        refresh();
-        attroff(COLOR_PAIR(3));
+        attroff(COLOR_PAIR(5));
         printw("Convert rgb(0-255) to 15-bit rgb\n\t");
-        refresh();
 
-        attron(COLOR_PAIR(3));
+        attron(COLOR_PAIR(5));
         printw("hex: ");
-        refresh();
-        attroff(COLOR_PAIR(3));
+        attroff(COLOR_PAIR(5));
         printw("Convert hexcode to 15-bit rgb\n\t");
-        refresh();
     }
 }
 
